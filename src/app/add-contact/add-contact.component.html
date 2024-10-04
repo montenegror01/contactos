@@ -1,0 +1,51 @@
+<div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-md">
+    <h2 class="text-2xl font-bold mb-6 text-center">Agregar Contacto</h2>
+  
+    <form [formGroup]="contactForm" (ngSubmit)="addContact()">
+        <div class="mb-4">
+            <label for="nombre" class="block text-gray-700 font-bold">Nombre</label>
+            <input type="text" id="nombre" formControlName="nombre" class="w-full px-4 py-2 border rounded-md" placeholder="Nombre del contacto">
+            <div *ngIf="contactForm.get('nombre')?.invalid && contactForm.get('nombre')?.touched" class="text-red-500">
+            El nombre es obligatorio.
+            </div>
+        </div>
+  
+        <div class="mb-4">
+            <label for="notas" class="block text-gray-700 font-bold">Notas</label>
+            <textarea id="notas" formControlName="notas" class="w-full px-4 py-2 border rounded-md" placeholder="Notas"></textarea>
+        </div>
+  
+        <div class="mb-4">
+            <label for="empresa" class="block text-gray-700 font-bold">Empresa</label>
+            <input type="text" id="empresa" formControlName="empresa" class="w-full px-4 py-2 border rounded-md" placeholder="Empresa">
+        </div>
+  
+        <!-- Teléfonos -->
+        <div class="mb-4">
+            <label class="block text-gray-700 font-bold">Teléfonos</label>
+            <div formArrayName="telefonos">
+            <div *ngFor="let telefono of telefonos.controls; let i = index" [formGroupName]="i" class="mb-2 flex">
+                <input type="text" formControlName="numero" class="w-full px-4 py-2 border rounded-md" placeholder="Número de teléfono">
+                <input type="text" formControlName="tipo" class="ml-2 px-4 py-2 border rounded-md" placeholder="Tipo (móvil, casa)">
+                <button (click)="removeTelefono(i)" type="button" class="ml-2 text-red-500">Eliminar</button>
+            </div>
+            <button (click)="addTelefono()" type="button" class="text-blue-500">Agregar teléfono</button>
+            </div>
+        </div>
+  
+        <!-- Emails -->
+        <div class="mb-4">
+            <label class="block text-gray-700 font-bold">Emails</label>
+            <div formArrayName="emails">
+            <div *ngFor="let email of emails.controls; let i = index" [formGroupName]="i" class="mb-2 flex">
+                <input type="email" formControlName="email" class="w-full px-4 py-2 border rounded-md" placeholder="Correo electrónico">
+                <button (click)="removeEmail(i)" type="button" class="ml-2 text-red-500">Eliminar</button>
+            </div>
+            <button (click)="addEmail()" type="button" class="text-blue-500">Agregar email</button>
+            </div>
+        </div>
+  
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md" [disabled]="contactForm.invalid">Agregar Contacto</button>
+    </form>
+</div>
+  
