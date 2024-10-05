@@ -1,27 +1,45 @@
-# Contactos
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.
+# Proyecto Angular
 
-## Development server
+## Requisitos del sistema
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Node.js >= 14.x
+- NPM >= 6.x
+- Angular CLI >= 12.x
 
-## Code scaffolding
+## Instalación
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. Clonar el repositorio:
 
-## Build
+```bash
+git clone https://github.com/montenegror01/contactos.git
+cd tcontactos
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+2. Instalar dependencias:
 
-## Running unit tests
+```bash
+npm install
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+3. Iniciar el servidor de desarrollo:
 
-## Running end-to-end tests
+```bash
+ng serve
+o
+npm start
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+4. Cambiar la url de la api
+Se modifica el archivo src/services/contact.service.ts
+en la linea de codigo
+```
+private apiUrl = 'http://tu-url-api/api/contactos';
+```
 
-## Further help
+5. Acceder a la aplicación en el navegador:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```
+http://localhost:4200
+```
+
