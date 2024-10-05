@@ -3,9 +3,9 @@
 
 ## Requisitos del sistema
 
-- Node.js >= 14.x
+- Node.js >= 20.x
 - NPM >= 6.x
-- Angular CLI >= 12.x
+- Angular CLI >= 16.x
 
 ## Instalación
 
