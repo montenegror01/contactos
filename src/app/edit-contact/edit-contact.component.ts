@@ -24,8 +24,9 @@ export class EditContactComponent implements OnInit {
       fecha_cumpleanos: [''],
       pagina_web: [''],
       empresa: [''],
-      telefonos: this.fb.array([]),  // Inicializa como un array
-      emails: this.fb.array([])       // Inicializa como un array
+      telefonos: this.fb.array([]),  
+      emails: this.fb.array([]),
+      direcciones: this.fb.array([])    
     });
   }
 
@@ -36,21 +37,50 @@ export class EditContactComponent implements OnInit {
 
   loadContact(): void {
     this.contactService.getContactById(this.contactId).subscribe(
-      (contact) => {
-        this.contactForm.patchValue(contact);
-        // Inicializar los teléfonos
-        contact.telefonos.forEach((telefono: any) => {
-          this.telefonos.push(this.fb.group({
-            numero: [telefono.numero, Validators.required],
-            tipo: [telefono.tipo]
-          }));
-        });
-        // Inicializar los emails
-        contact.emails.forEach((email: any) => {
-          this.emails.push(this.fb.group({
-            direccion: [email.direccion, [Validators.required, Validators.email]]
-          }));
-        });
+      (contact: Contact) => {
+        console.log(contact);
+        if (contact) {
+          this.contactForm.patchValue({
+            nombre: contact.nombre,
+            notas: contact.notas,
+            fecha_cumpleanos: contact.fecha_cumpleanos,
+            pagina_web: contact.pagina_web,
+            empresa: contact.empresa
+          });
+          
+          // Inicializa los teléfonos solo si existen
+          if (contact.telefonos && contact.telefonos.length > 0) {
+            contact.telefonos.forEach((telefono: any) => {
+              this.telefonos.push(this.fb.group({
+                numero: [telefono.numero, Validators.required],
+                tipo: [telefono.tipo]
+              }));
+            });
+          }
+  
+          // Inicializa los correos solo si existen
+          if (contact.emails && contact.emails.length > 0) {
+            contact.emails.forEach((email: any) => {
+              this.emails.push(this.fb.group({
+                email: [email.email, [Validators.required, Validators.email]]
+              }));
+            });
+          }
+
+          // Inicializar las direcciones
+          if (contact.direcciones && contact.direcciones.length > 0) {
+            contact.direcciones.forEach((direccion: any) => {
+              this.direcciones.push(this.fb.group({
+                direccion: [direccion.direccion, Validators.required],
+                ciudad: [direccion.ciudad, Validators.required],
+                estado: [direccion.estado, Validators.required],
+                codigo_postal: [direccion.codigo_postal, Validators.required]
+              }));
+            });
+          }
+        } else {
+          console.error('No contact found.');
+        }
       },
       (error) => {
         console.error('Error fetching contact:', error);
@@ -80,7 +110,7 @@ export class EditContactComponent implements OnInit {
   addTelefono() {
     this.telefonos.push(this.fb.group({
       numero: ['', Validators.required],
-      tipo: ['']  // Puedes agregar más validaciones si lo necesitas
+      tipo: ['']  
     }));
   }
 
@@ -94,11 +124,28 @@ export class EditContactComponent implements OnInit {
 
   addEmail() {
     this.emails.push(this.fb.group({
-      direccion: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]]
     }));
   }
 
   removeEmail(index: number) {
     this.emails.removeAt(index);
+  }
+
+  get direcciones(): FormArray {
+    return this.contactForm.get('direcciones') as FormArray;
+  }
+
+  addDireccion() {
+    this.direcciones.push(this.fb.group({
+      direccion: ['', Validators.required],
+      ciudad: ['', Validators.required],
+      estado: ['', Validators.required],
+      codigo_postal: ['', Validators.required]
+    }));
+  }
+
+  removeDireccion(index: number) {
+    this.direcciones.removeAt(index);
   }
 }

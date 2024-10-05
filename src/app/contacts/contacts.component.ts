@@ -33,15 +33,18 @@ export class ContactsComponent implements OnInit {
   }
   
   deleteContact(id: number): void {
+    if (confirm('¿Estás seguro de que quieres eliminar este contacto?')) {
     this.contactService.deleteContact(id).subscribe(
       () => {
-        console.log('Contacto eliminado');
-        this.contacts = this.contacts.filter((c: { id: number; }) => c.id !== id);
+
+        console.log('Contacto eliminado',this.contacts);
+        this.getContacts();
       },
       error => {
         console.error('Error deleting contact:', error);
       }
     );
+  }
   }
 }
 

@@ -63,29 +63,29 @@
             <label class="block text-gray-700 font-bold mb-2">Teléfonos</label>
             
             <div formArrayName="telefonos">
-            <div *ngFor="let telefono of telefonos.controls; let i = index" [formGroupName]="i" class="mb-4">
-                <div class="flex gap-4 items-center">
-                <input 
-                    type="text" 
-                    formControlName="numero" 
-                    class="flex-1 p-2 border border-gray-300 rounded-md"
-                    placeholder="Número de teléfono">
-                
-                <input 
-                    type="text" 
-                    formControlName="tipo" 
-                    class="flex-1 p-2 border border-gray-300 rounded-md"
-                    placeholder="Tipo (Móvil, Trabajo, Casa)">
-                
-                <button type="button" (click)="removeTelefono(i)" class="text-red-500">
-                    Eliminar
-                </button>
+                <div *ngFor="let telefono of telefonos.controls; let i = index" [formGroupName]="i" class="mb-4">
+                    <div class="flex gap-4 items-center">
+                        <input 
+                            type="text" 
+                            formControlName="numero" 
+                            class="flex-1 p-2 border border-gray-300 rounded-md"
+                            placeholder="Número de teléfono">
+                        
+                        <input 
+                            type="text" 
+                            formControlName="tipo" 
+                            class="flex-1 p-2 border border-gray-300 rounded-md"
+                            placeholder="Tipo (Móvil, Trabajo, Casa)">
+                        
+                        <button type="button" (click)="removeTelefono(i)" class="text-red-500">
+                            Eliminar
+                        </button>
+                    </div>
+        
+                    <div *ngIf="telefono.get('numero')?.invalid && telefono.get('numero')?.touched" class="text-red-500 text-sm">
+                    El número es obligatorio.
+                    </div>
                 </div>
-    
-                <div *ngIf="telefono.get('numero')?.invalid && telefono.get('numero')?.touched" class="text-red-500 text-sm">
-                El número es obligatorio.
-                </div>
-            </div>
             </div>
     
             <button type="button" (click)="addTelefono()" class="text-blue-500">Añadir Teléfono</button>
@@ -96,28 +96,59 @@
             <label class="block text-gray-700 font-bold mb-2">Emails</label>
     
             <div formArrayName="emails">
-            <div *ngFor="let email of emails.controls; let i = index" [formGroupName]="i" class="mb-4">
-                <div class="flex gap-4 items-center">
-                <input 
-                    type="email" 
-                    formControlName="direccion" 
-                    class="flex-1 p-2 border border-gray-300 rounded-md"
-                    placeholder="Correo electrónico">
-                
-                <button type="button" (click)="removeEmail(i)" class="text-red-500">
-                    Eliminar
-                </button>
+                <div *ngFor="let email of emails.controls; let i = index" [formGroupName]="i" class="mb-4">
+                    <div class="flex gap-4 items-center">
+                        <input 
+                            type="email" 
+                            formControlName="email" 
+                            class="flex-1 p-2 border border-gray-300 rounded-md"
+                            placeholder="Correo electrónico">
+                        
+                        <button type="button" (click)="removeEmail(i)" class="text-red-500">
+                            Eliminar
+                        </button>
+                    </div>
+        
+                    <div *ngIf="email.get('email')?.invalid && email.get('email')?.touched" class="text-red-500 text-sm">
+                    Correo inválido.
+                    </div>
                 </div>
-    
-                <div *ngIf="email.get('direccion')?.invalid && email.get('direccion')?.touched" class="text-red-500 text-sm">
-                Correo inválido.
-                </div>
-            </div>
             </div>
     
             <button type="button" (click)="addEmail()" class="text-blue-500">Añadir Email</button>
         </div>
-    
+        <!-- Campos para direcciones -->
+        <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2">Direcciones</label>
+            <div formArrayName="direcciones">
+                <div *ngFor="let direccion of direcciones.controls; let i = index" [formGroupName]="i" class="mb-4">
+                    <div class="flex gap-4 items-center justify-between border-b-2">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-gray-700 font-bold mb-2" for="direccion">Dirección</label>
+                                <input formControlName="direccion" placeholder="Dirección" class="flex-1 p-2 border border-gray-300 rounded-md"/>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-bold mb-2" for="ciudad">Ciudad</label>
+                                <input formControlName="ciudad" placeholder="Ciudad" class="flex-1 p-2 border border-gray-300 rounded-md"/>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-bold mb-2" for="estado">Estado</label>
+                                <input formControlName="estado" placeholder="Estado" class="flex-1 p-2 border border-gray-300 rounded-md"/>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-bold mb-2" for="codigo_postal">Código Postal</label>
+                                <input formControlName="codigo_postal" placeholder="Código Postal" class="flex-1 p-2 border border-gray-300 rounded-md"/>
+                            </div>
+                        </div>
+                        <button type="button" (click)="removeDireccion(i)" class="text-red-500 text-sm">Eliminar</button>
+
+                    </div>
+                    
+                </div>
+                <button type="button" (click)="addDireccion()" class="text-blue-500">Agregar Dirección</button>
+            </div>
+        </div>
         <!-- Botones de acción -->
         <div class="flex justify-between mt-6">
             <button 
