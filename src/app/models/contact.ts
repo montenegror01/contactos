@@ -16,3 +16,4 @@ export class Contact {
       this.emails = [];
     }
   }
+  

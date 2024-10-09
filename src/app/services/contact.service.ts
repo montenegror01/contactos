@@ -13,8 +13,14 @@ export class ContactService {
   constructor(private http: HttpClient) { }
 
   // Obtener todos los contactos
-  getContacts(page: number = 1): Observable<Contact[]> {
-    return this.http.get<Contact[]>(`${this.apiUrl}?page=${page}`);
+  getContacts(page: number = 1, search: string = ''): Observable<any> {
+    let params: any = { page };
+
+    if (search) {
+      params.search = search;  // Agregar el parámetro de búsqueda
+    }
+
+    return this.http.get<any>(this.apiUrl, { params });
   }
 
   // Agregar un nuevo contacto

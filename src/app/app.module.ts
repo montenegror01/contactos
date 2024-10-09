@@ -6,7 +6,7 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { AddContactComponent } from './add-contact/add-contact.component';
 import { EditContactComponent } from './edit-contact/edit-contact.component';
 import { ContactDetailsComponent } from './contact-details/contact-details.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -26,6 +26,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule
